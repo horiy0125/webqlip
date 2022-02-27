@@ -1,8 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Global } from '@emotion/react';
 import { RecoilRoot } from 'recoil';
-import { globalStyle } from '../styles/global';
+import { SessionProvider } from 'next-auth/react';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
@@ -12,10 +11,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
       </Head>
 
-      <RecoilRoot>
-        <Global styles={globalStyle} />
-        <Component {...pageProps} />
-      </RecoilRoot>
+      <SessionProvider>
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
+      </SessionProvider>
     </>
   );
 };
